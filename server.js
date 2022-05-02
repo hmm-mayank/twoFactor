@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require("uuid");
 const bodyParser = require("body-parser");
 const app = express();
 
-const port = 3200;
+const port = 3004;
 
 app.use(bodyParser.apply());
 app.use(
