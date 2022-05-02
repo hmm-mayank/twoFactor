@@ -60,7 +60,7 @@ app.get("/verifyOtp", async (req, res) => {
   );
 
   if (valued) {
-    res.json(valued);
+    res.json({ status: true, message: "OTP Valid" });
     return;
   } else {
     res.json({ status: false, message: "OTP Invalid" });
