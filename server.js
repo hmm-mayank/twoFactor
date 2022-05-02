@@ -25,7 +25,7 @@ app.post("/sendOtp", async (req, res) => {
   const { ip, latLong, userId, userEmail, userPhone, timeStamp } = req.body;
   if (req.query.type == "phone") {
     req.body["type"] = "phone";
-    SendMessage("+91", userPhone, `${otp} is your Two Factor Code `).then(
+    SendMessage("+1", userPhone, `${otp} is your Two Factor Code `).then(
       async (e) => {
         await fs.appendFile("userRecord.json", JSON.stringify(req.body) + ",");
         res.send(req.body);
