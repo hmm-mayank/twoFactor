@@ -15,7 +15,7 @@ app.use(
     methods: ["post", "get"],
   })
 );
-app.post("/sendOtp", async (req, res) => {
+app.post("/two/sendOtp", async (req, res) => {
   const otp = fourDigitCode();
   req.body["uuid"] = uuidv4();
   req.body["serverTimeStamp"] = Math.floor(
@@ -45,7 +45,7 @@ app.post("/sendOtp", async (req, res) => {
   }
 });
 
-app.get("/verifyOtp", async (req, res) => {
+app.get("/two/verifyOtp", async (req, res) => {
   let { otp, key, uuid } = req.query;
   let verifyRecord = await fs.readFile("userRecord.json", "utf-8");
   verifyRecord = verifyRecord.slice(0, -1);
