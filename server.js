@@ -27,13 +27,11 @@ app.post("/sendOtp", async (req, res) => {
     req.body["type"] = "phone";
     SendMessage("+91", userPhone, `${otp} is your Two Factor Code `).then(
       async (e) => {
-        console.log(e);
         await fs.appendFile("userRecord.json", JSON.stringify(req.body) + ",");
         res.send(req.body);
       }
     );
   } else {
-    console.log(emailTemplate(otp));
     req.body["type"] = "email";
     SendEmail(
       userEmail,
