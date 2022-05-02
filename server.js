@@ -48,7 +48,7 @@ app.post("/sendOtp", async (req, res) => {
 });
 
 app.get("/verifyOtp", async (req, res) => {
-  let { otp, userPhone, userEmail } = req.query;
+  let { otp, key, uuid } = req.query;
   let verifyRecord = await fs.readFile("userRecord.json", "utf-8");
   verifyRecord = verifyRecord.slice(0, -1);
   let properData = "[" + verifyRecord + "]";
@@ -56,9 +56,20 @@ app.get("/verifyOtp", async (req, res) => {
 
   let valued = properData.find(
     (e) =>
-      e.otp == otp && (e.userPhone == userPhone || e.userEmail == userEmail)
+      e.otp == otp &&
+      (e.userPhone === key || e.userEmail === key) &&
+      e.uuid === uuid
   );
-  res.send(valued);
+
+  if (valued) {
+    valued["status"] = true;
+    res.json(valued);
+    return;
+  } else {
+    valued["status"] = false;
+    res.json({ status: false, message: "OTP Invalid" });
+    return;
+  }
 });
 
 app.listen(port, () => {
