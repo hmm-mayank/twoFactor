@@ -33,15 +33,13 @@ app.post("/two/sendOtp", async (req, res) => {
     );
   } else {
     req.body["type"] = "email";
-    SendEmail(
-      userEmail,
-      emailTemplate(otp),
-      "USA Super Admin Two Factor Code."
-    ).then(async (e) => {
-      console.log(e);
-      await fs.appendFile("userRecord.json", JSON.stringify(req.body) + ",");
-      res.send(req.body);
-    });
+    SendEmail(userEmail, emailTemplate(otp), "Your Two Factor Code.").then(
+      async (e) => {
+        console.log(e);
+        await fs.appendFile("userRecord.json", JSON.stringify(req.body) + ",");
+        res.send(req.body);
+      }
+    );
   }
 });
 
